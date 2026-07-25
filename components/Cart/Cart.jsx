@@ -53,10 +53,12 @@ export default function Cart() {
           
           {cartItems.map(item => (
             <div key={item.id} className="cart-item">
-              <div className="cart-item__image" style={{ backgroundColor: item.color }}></div>
-              <div className="cart-item__details">
-                <h3>{item.name}</h3>
-                <p className="cart-item__author">{item.author}</p>
+              <div className="cart-item__product">
+                <div className="cart-item__image" style={{ backgroundColor: item.color }}></div>
+                <div className="cart-item__details">
+                  <h3>{item.name}</h3>
+                  <p className="cart-item__author">{item.author}</p>
+                </div>
               </div>
               
               <div className="cart-item__price-unit">
@@ -109,7 +111,7 @@ export default function Cart() {
                     <span className="shipping-option__time">{option.time}</span>
                   </div>
                   <span className="shipping-option__price">
-                    {option.price === 0 ? 'Grátis' : \`R$ \${option.price.toFixed(2)}\`}
+                    {option.price === 0 ? 'Grátis' : `R$ ${option.price.toFixed(2)}`}
                   </span>
                 </label>
               ))}
@@ -126,7 +128,7 @@ export default function Cart() {
         </div>
         <div className="cart-summary__row">
           <span>Frete</span>
-          <span>{selectedShipping === 0 ? (shippingOptions.length > 0 ? 'Grátis' : 'A calcular') : \`R$ \${selectedShipping.toFixed(2)}\`}</span>
+          <span>{selectedShipping === 0 ? (shippingOptions.length > 0 ? 'Grátis' : 'A calcular') : `R$ ${selectedShipping.toFixed(2)}`}</span>
         </div>
         <hr />
         <div className="cart-summary__total">

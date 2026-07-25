@@ -45,6 +45,12 @@
   gap: 1rem;
 }
 
+.cart-item__product {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .cart-item__image {
   width: 50px;
   height: 75px;
@@ -55,8 +61,8 @@
 
 .cart-item__details {
   display: flex;
-  gap: 1rem;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .cart-item__details h3 {

@@ -4,12 +4,12 @@ import { useCart } from '../../context/CartContext';
 import './checkout.css';
 
 export default function Checkout() {
-  const { cartItems, cartTotalPrice } = useCart();
+  const { cartItems = [], cartTotalPrice = 0 } = useCart() || {};
   const [paymentMethod, setPaymentMethod] = useState('credit_card');
   const [isSuccess, setIsSuccess] = useState(false);
 
   // Fake shipping value for demonstration if not passed via context
-  const finalTotal = cartTotalPrice > 0 ? cartTotalPrice + 15.90 : 0; 
+  const finalTotal = cartTotalPrice > 0 ? Number(cartTotalPrice) + 15.90 : 0; 
 
   const handleCheckout = (e) => {
     e.preventDefault();
@@ -59,11 +59,11 @@ export default function Checkout() {
           <div className="form-section">
             <h3>3. Pagamento</h3>
             <div className="payment-methods">
-              <label className={\`payment-method \${paymentMethod === 'credit_card' ? 'active' : ''}\`}>
+              <label className={`payment-method ${paymentMethod === 'credit_card' ? 'active' : ''}`}>
                 <input type="radio" name="payment" checked={paymentMethod === 'credit_card'} onChange={() => setPaymentMethod('credit_card')} />
                 Cartão de Crédito
               </label>
-              <label className={\`payment-method \${paymentMethod === 'pix' ? 'active' : ''}\`}>
+              <label className={`payment-method ${paymentMethod === 'pix' ? 'active' : ''}`}>
                 <input type="radio" name="payment" checked={paymentMethod === 'pix'} onChange={() => setPaymentMethod('pix')} />
                 PIX
               </label>
@@ -108,14 +108,14 @@ export default function Checkout() {
           {cartItems.map(item => (
             <div key={item.id} className="summary-item">
               <span>{item.quantity}x {item.name}</span>
-              <span>R$ {(item.price * item.quantity).toFixed(2)}</span>
+              <span>R$ {(Number(item.price || 0) * Number(item.quantity || 1)).toFixed(2)}</span>
             </div>
           ))}
         </div>
         <hr />
         <div className="summary-row">
           <span>Subtotal</span>
-          <span>R$ {cartTotalPrice.toFixed(2)}</span>
+          <span>R$ {Number(cartTotalPrice).toFixed(2)}</span>
         </div>
         <div className="summary-row">
           <span>Frete (Fixo Exemplo)</span>
@@ -123,7 +123,7 @@ export default function Checkout() {
         </div>
         <div className="summary-total">
           <span>Total a Pagar</span>
-          <span>R$ {finalTotal.toFixed(2)}</span>
+          <span>R$ {Number(finalTotal).toFixed(2)}</span>
         </div>
         
         <button type="submit" form="checkout-form" className="btn checkout-btn">
