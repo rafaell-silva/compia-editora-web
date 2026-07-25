@@ -1,15 +1,42 @@
 // Placeholder para a conexão com a REST API do WooCommerce
-// URL base da API e Keys deverão ser configuradas no .env.local
-
-const WC_API_URL = process.env.NEXT_PUBLIC_WC_API_URL || 'https://sua-loja-wp.com/wp-json/wc/v3';
-const WC_CONSUMER_KEY = process.env.WC_CONSUMER_KEY;
-const WC_CONSUMER_SECRET = process.env.WC_CONSUMER_SECRET;
 
 export async function fetchProducts() {
-  // Retorno mockado temporariamente até a integração
   return [
-    { id: 1, name: 'Introdução à Inteligência Artificial', price: '89.90' },
-    { id: 2, name: 'Arquitetura de Software Inteligente', price: '120.00' },
-    { id: 3, name: 'Blockchain e Criptografia', price: '95.50' }
+    { 
+      id: 1, 
+      name: 'Introdução à Inteligência Artificial', 
+      author: 'Marcos Silva',
+      price: '89.90',
+      category: 'Inteligência Artificial',
+      color: '#4a90e2' // Blue theme
+    },
+    { 
+      id: 2, 
+      name: 'Arquitetura de Software Inteligente', 
+      author: 'Ana Clara',
+      price: '120.00',
+      category: 'Engenharia de Software',
+      color: '#e74c3c' // Red theme
+    },
+    { 
+      id: 3, 
+      name: 'Blockchain e Criptografia', 
+      author: 'João Souza',
+      price: '95.50',
+      category: 'Cibersegurança',
+      color: '#f39c12' // Orange theme
+    },
+    { 
+      id: 4, 
+      name: 'Deep Learning Aplicado', 
+      author: 'Marcos Silva',
+      price: '145.00',
+      category: 'Inteligência Artificial',
+      color: '#8e44ad' // Purple theme
+    }
   ];
+}
+
+export async function fetchCategories() {
+  return ['Todos', 'Inteligência Artificial', 'Engenharia de Software', 'Cibersegurança'];
 }
