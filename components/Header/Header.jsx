@@ -1,7 +1,11 @@
+'use client';
 import './header.css';
 import Link from 'next/link';
+import { useCart } from '../../context/CartContext';
 
 export default function Header() {
+  const { cartTotalItems } = useCart();
+
   return (
     <header className="header">
       <div className="header__logo">
@@ -12,7 +16,11 @@ export default function Header() {
       <nav className="header__nav">
         <ul>
           <li><Link href="/" className="header__nav-link">Catálogo</Link></li>
-          <li><Link href="/carrinho" className="header__nav-link">Carrinho (0)</Link></li>
+          <li>
+            <Link href="/carrinho" className="header__nav-link">
+              Carrinho <span className="cart-badge">{cartTotalItems > 0 ? `(${cartTotalItems})` : ''}</span>
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>

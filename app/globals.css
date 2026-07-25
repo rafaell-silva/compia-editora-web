@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Outfit:wght@400;600;800&display=swap');
+
 :root {
   --primary-color: #8B0000; /* Dark Red */
   --secondary-color: #5C4033; /* Dark Brown */
   --background-color: #FFFFFF;
   --text-color: #333333;
   --text-light: #F5F5F5;
+  --font-heading: 'Merriweather', serif;
+  --font-body: 'Outfit', sans-serif;
 }
 
 * {
@@ -13,10 +17,14 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }
 
 a {
@@ -35,6 +43,7 @@ a {
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
+  font-family: var(--font-body);
 }
 
 .btn:hover {
