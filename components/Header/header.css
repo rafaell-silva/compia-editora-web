@@ -1,0 +1,28 @@
+.header {
+  background-color: var(--background-color);
+  border-bottom: 2px solid var(--primary-color);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo h1 {
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.header__nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.header__nav-link {
+  font-weight: 500;
+  color: var(--secondary-color);
+}
+
+.header__nav-link:hover {
+  color: var(--primary-color);
+}
