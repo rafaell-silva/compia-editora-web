@@ -181,3 +181,62 @@
   from { transform: translateY(100%); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+@media (max-width: 768px) {
+  .product-list {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+
+  .product-card {
+    padding: 1rem;
+  }
+
+  .book-cover {
+    width: 120px;
+    height: 180px;
+    padding: 1rem 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .book-cover__author {
+    font-size: 0.6rem;
+  }
+
+  .book-cover__title {
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
+  }
+
+  .book-cover__publisher {
+    font-size: 0.55rem;
+    padding-top: 0.3rem;
+  }
+
+  .product-card__title {
+    font-size: 0.95rem;
+  }
+
+  .product-card__price {
+    font-size: 1.1rem;
+  }
+
+  .toast-feedback {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .book-cover {
+    width: 100px;
+    height: 150px;
+  }
+}

@@ -47,6 +47,34 @@
 .book-cover--small {
   width: 100px;
   height: 150px;
+  padding: 0.5rem;
+}
+
+.book-cover--small .book-cover__front {
+  padding: 0.4rem;
+}
+
+.book-cover--small .book-cover__author {
+  font-size: 0.5rem;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.book-cover--small .book-cover__title {
+  font-size: 0.6rem;
+  margin: 0.3rem 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.1;
+}
+
+.book-cover--small .book-cover__publisher {
+  font-size: 0.45rem;
+  padding-top: 0.2rem;
 }
 
 .wishlist-card__info {

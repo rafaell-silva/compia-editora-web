@@ -49,3 +49,43 @@
   background: var(--secondary-color);
   color: white;
 }
+
+@media (max-width: 768px) {
+  .catalog {
+    padding: 0 1rem;
+  }
+
+  .catalog__search {
+    margin-bottom: 1.5rem;
+  }
+
+  .catalog__search-input {
+    max-width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  .catalog__filters {
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .catalog__filter-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog {
+    padding: 0 0.75rem;
+  }
+
+  .catalog__filters {
+    gap: 0.4rem;
+  }
+
+  .catalog__filter-btn {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}
