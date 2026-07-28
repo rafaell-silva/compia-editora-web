@@ -32,6 +32,7 @@ A interface visual estática e de comportamento (UX/UI) já foi estruturada base
 - [x] **Catálogo e Vitrine:** Filtro dinâmico por categorias e exibição criativa de produtos através de "Capas de Livros 3D" desenvolvidas 100% via CSS nativo.
 - [x] **Dados de Produtos:** 11 produtos mockados com descrições completas, preços, estoque, formato (físico/e-book/kit), tags e ISBN.
 - [x] **Página de Detalhes do Produto:** Rota `/produto/[id]` com informações detalhadas, descrição, metadados e botão de adicionar ao carrinho.
+- [x] **Wishlist:** Funcionalidade de lista de desejos.
 - [x] **Sistema de Busca:** Busca por título, autor, categoria ou tags.
 - [x] **Autores:** Dados de autores com biografia e listagem de livros.
 
@@ -113,12 +114,6 @@ A interface visual estática e de comportamento (UX/UI) já foi estruturada base
 - [ ] **Cálculo de Frete Real:** Conectar API dos Correios ou transportadoras privadas.
 - [ ] **E-mails Transacionais:** Integração com SendGrid, Mailgun ou SES para confirmação, envio e rastreio.
 - [ ] **Entrega de E-books:** Link de download seguro ou área restrita para produtos digitais.
-
-### C. Melhorias de Frontend
-- [x] **Wishlist:** Funcionalidade de lista de desejos.
-- [x] **Barra de Busca:** Funcionalidade no catalogo para buscar por livros que funciona por nome de autor ou do proprio livro
-- [x] **Página de Contato:** Formulário com validação e envio.
-- [x] **Acessibilidade (a11y):** Melhorar contraste, aria-labels e navegação por teclado.
 
 ---
 

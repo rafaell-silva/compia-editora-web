@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '../../context/CartContext';
 import { useOrders } from '../../context/OrderContext';
+import QRCode from '../QRCode/QRCode';
 import './checkout.css';
 
 const validators = {
@@ -248,7 +249,7 @@ export default function Checkout() {
               <div className="payment-details pix-form">
                 <p>Escaneie o QR Code abaixo com o aplicativo do seu banco:</p>
                 <div className="pix-qrcode">
-                  <div className="fake-qr"></div>
+                  <QRCode value={pixCode} size={200} />
                 </div>
                 <p>Ou utilize a chave Copia e Cola:</p>
                 <div className="pix-copy-paste">
