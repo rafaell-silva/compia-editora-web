@@ -3,8 +3,9 @@ import { useState } from 'react';
 import Link from 'next/link';
 import './productList.css';
 import { useCart } from '../../context/CartContext';
+import { SkeletonCard } from '../Skeleton/Skeleton';
 
-export default function ProductList({ products }) {
+export default function ProductList({ products, isLoading = false }) {
   const { addToCart } = useCart();
   const [toastMessage, setToastMessage] = useState('');
 
@@ -13,6 +14,16 @@ export default function ProductList({ products }) {
     setToastMessage(`"${product.name}" adicionado ao carrinho!`);
     setTimeout(() => setToastMessage(''), 3000);
   };
+
+  if (isLoading) {
+    return (
+      <div className="product-list">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <>
