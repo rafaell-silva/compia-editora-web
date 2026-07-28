@@ -143,24 +143,25 @@
 .product-card__wishlist {
   background: none;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 0.8rem;
+  border-radius: 6px;
+  padding: 0.6rem;
   cursor: pointer;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
+  color: #888;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .product-card__wishlist:hover {
-  border-color: var(--primary-color);
-  transform: scale(1.05);
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .product-card__wishlist.active {
-  border-color: var(--primary-color);
-  background: rgba(139, 0, 0, 0.05);
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
+  background: rgba(92, 64, 51, 0.05);
 }
 
 .toast-feedback {

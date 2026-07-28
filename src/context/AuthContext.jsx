@@ -17,7 +17,8 @@ function loadUser() {
 // Mock de usuários para demonstração
 const MOCK_USERS = [
   { id: 1, name: 'Admin COMPIA', email: 'admin@comperia.com.br', role: 'admin', password: 'admin123' },
-  { id: 2, name: 'Carlos Leitor', email: 'carlos@email.com', role: 'customer', password: '123456' }
+  { id: 2, name: 'Carlos Leitor', email: 'carlos@email.com', role: 'customer', password: '123456' },
+  { id: 3, name: 'Ana Editora', email: 'ana@comperia.com.br', role: 'editor', password: 'editor123' }
 ];
 
 export function AuthProvider({ children }) {

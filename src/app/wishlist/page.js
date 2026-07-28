@@ -16,8 +16,13 @@ export default function WishlistPage() {
   if (wishlistItems.length === 0) {
     return (
       <div className="wishlist-empty">
+        <div className="wishlist-empty__icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
         <h2>Sua lista de desejos está vazia</h2>
-        <p>Explore nosso catálogo e adicione livros que você deseja!</p>
+        <p>Explore nosso catálogo e salve os livros que você deseja.</p>
         <Link href="/" className="btn">Ver Catálogo</Link>
       </div>
     );
@@ -25,7 +30,10 @@ export default function WishlistPage() {
 
   return (
     <div className="wishlist-page">
-      <h1>Lista de Desejos</h1>
+      <div className="wishlist-header">
+        <h1>Lista de Desejos</h1>
+        <p className="wishlist-count">{wishlistItems.length} {wishlistItems.length === 1 ? 'item' : 'itens'}</p>
+      </div>
       
       <div className="wishlist-grid">
         {wishlistItems.map(product => (
@@ -45,23 +53,27 @@ export default function WishlistPage() {
               <Link href={`/produto/${product.id}`}>
                 <h2 className="wishlist-card__title">{product.name}</h2>
               </Link>
+              <p className="wishlist-card__author">{product.author}</p>
               <p className="wishlist-card__category">{product.category}</p>
               <p className="wishlist-card__price">R$ {product.price.toFixed(2)}</p>
               
               <div className="wishlist-card__actions">
                 <button 
                   type="button"
-                  className="btn"
+                  className="btn wishlist-card__btn"
                   onClick={() => handleAddToCart(product)}
                 >
-                  Adicionar ao Carrinho
+                  Mover para o Carrinho
                 </button>
                 <button 
                   type="button"
-                  className="btn btn--secondary"
+                  className="wishlist-card__remove"
                   onClick={() => removeFromWishlist(product.id)}
+                  aria-label="Remover da lista de desejos"
                 >
-                  Remover
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 6L6 18M6 6l12 12"></path>
+                  </svg>
                 </button>
               </div>
             </div>

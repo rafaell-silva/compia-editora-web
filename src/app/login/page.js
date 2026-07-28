@@ -4,33 +4,44 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import './login.css';
 
+const DEMO_USERS = [
+  { name: 'Admin', email: 'admin@comperia.com.br', password: 'admin123', role: 'admin', label: 'Administrador' },
+  { name: 'Carlos Leitor', email: 'carlos@email.com', password: '123456', role: 'customer', label: 'Cliente' },
+  { name: 'Ana Editora', email: 'ana@comperia.com.br', password: 'editor123', role: 'editor', label: 'Editora' }
+];
+
 export default function LoginPage() {
   const { login, register, isAuthenticated } = useAuth();
   const router = useRouter();
   const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
 
   if (isAuthenticated()) {
     router.push('/');
     return null;
   }
 
+  const handleDemoLogin = (user) => {
+    setFormData({ name: user.name, email: user.email, password: user.password });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    const formData = new FormData(e.target);
-    const email = formData.get('email');
-    const password = formData.get('password');
-
     let result;
     if (isRegistering) {
-      const name = formData.get('name');
-      result = await register(name, email, password);
+      result = await register(formData.name, formData.email, formData.password);
     } else {
-      result = await login(email, password);
+      result = await login(formData.email, formData.password);
     }
 
     setLoading(false);
@@ -52,14 +63,36 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit}>
           {isRegistering && (
             <div className="form-group">
-              <input type="text" name="name" placeholder="Nome Completo" required />
+              <input 
+                type="text" 
+                name="name" 
+                placeholder="Nome Completo" 
+                required 
+                value={formData.name}
+                onChange={handleChange}
+              />
             </div>
           )}
           <div className="form-group">
-            <input type="email" name="email" placeholder="E-mail" required />
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="E-mail" 
+              required 
+              value={formData.email}
+              onChange={handleChange}
+            />
           </div>
           <div className="form-group">
-            <input type="password" name="password" placeholder="Senha" required minLength="6" />
+            <input 
+              type="password" 
+              name="password" 
+              placeholder="Senha" 
+              required 
+              minLength="6"
+              value={formData.password}
+              onChange={handleChange}
+            />
           </div>
           <button type="submit" className="btn login-btn" disabled={loading}>
             {loading ? 'Carregando...' : (isRegistering ? 'Criar Conta' : 'Entrar')}
@@ -76,7 +109,20 @@ export default function LoginPage() {
 
         {!isRegistering && (
           <div className="login-demo">
-            <p><strong>Demo:</strong> admin@comperia.com.br / admin123</p>
+            <p className="login-demo__title">Contas de demonstração:</p>
+            <div className="login-demo__list">
+              {DEMO_USERS.map((user) => (
+                <button
+                  key={user.email}
+                  type="button"
+                  className="login-demo__btn"
+                  onClick={() => handleDemoLogin(user)}
+                >
+                  <span className="login-demo__label">{user.label}</span>
+                  <span className="login-demo__email">{user.email}</span>
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>
