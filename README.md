@@ -89,9 +89,11 @@ A interface visual estática e de comportamento (UX/UI) já foi estruturada base
 | `/` | Catálogo principal | Não |
 | `/sobre` | Sobre a editora | Não |
 | `/faq` | Perguntas frequentes | Não |
+| `/contato` | Formulário de contato | Não |
 | `/produto/[id]` | Detalhes do produto | Não |
 | `/carrinho` | Carrinho de compras | Não |
 | `/checkout` | Finalização da compra | Não |
+| `/wishlist` | Lista de desejos | Não |
 | `/login` | Login / Registro | Não |
 | `/pedidos` | Histórico de pedidos | Sim |
 | `/admin` | Painel administrativo | Sim (admin) |
@@ -113,10 +115,10 @@ A interface visual estática e de comportamento (UX/UI) já foi estruturada base
 - [ ] **Entrega de E-books:** Link de download seguro ou área restrita para produtos digitais.
 
 ### C. Melhorias de Frontend
-- [ ] **Wishlist:** Funcionalidade de lista de desejos.
-- [ ] **Barra de Busca:** Funcionalidade no catalogo para buscar por livros que funciona por nome de autor ou do proprio livro
-- [ ] **Página de Contato:** Formulário com validação e envio.
-- [ ] **Acessibilidade (a11y):** Melhorar contraste, aria-labels e navegação por teclado.
+- [x] **Wishlist:** Funcionalidade de lista de desejos.
+- [x] **Barra de Busca:** Funcionalidade no catalogo para buscar por livros que funciona por nome de autor ou do proprio livro
+- [x] **Página de Contato:** Formulário com validação e envio.
+- [x] **Acessibilidade (a11y):** Melhorar contraste, aria-labels e navegação por teclado.
 
 ---
 
