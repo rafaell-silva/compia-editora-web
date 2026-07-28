@@ -18,8 +18,6 @@ export default function Header() {
       <nav className="header__nav">
         <ul>
           <li><Link href="/" className="header__nav-link">Catálogo</Link></li>
-          <li><Link href="/sobre" className="header__nav-link">Sobre</Link></li>
-          <li><Link href="/faq" className="header__nav-link">FAQ</Link></li>
           <li>
             <Link href="/carrinho" className="header__nav-link">
               Carrinho <span className="cart-badge">{cartTotalItems > 0 ? `(${cartTotalItems})` : ''}</span>
