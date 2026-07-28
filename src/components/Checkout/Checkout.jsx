@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Link from 'next/link';
 import { useCart } from '../../context/CartContext';
 import './checkout.css';
 
@@ -75,7 +76,7 @@ export default function Checkout() {
       <div className="checkout-success">
         <h2>🎉 Pedido Realizado com Sucesso!</h2>
         <p>Agradecemos por comprar na COMPIA Editora. Em breve você receberá um e-mail com os detalhes do envio.</p>
-        <a href="/" className="btn">Voltar ao Catálogo</a>
+        <Link href="/" className="btn">Voltar ao Catálogo</Link>
       </div>
     );
   }

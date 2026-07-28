@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const CartContext = createContext();
 const STORAGE_KEY = 'comperia-cart';
 
-function loadCart() {
+function getInitialCart() {
   if (typeof window === 'undefined') return [];
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -15,19 +15,11 @@ function loadCart() {
 }
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [cartItems, setCartItems] = useState(getInitialCart);
 
   useEffect(() => {
-    setCartItems(loadCart());
-    setIsLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cartItems));
-    }
-  }, [cartItems, isLoaded]);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product) => {
     setCartItems(prev => {
@@ -56,7 +48,7 @@ export function CartProvider({ children }) {
   const cartTotalPrice = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart, cartTotalItems, cartTotalPrice, isLoaded }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart, cartTotalItems, cartTotalPrice }}>
       {children}
     </CartContext.Provider>
   );
