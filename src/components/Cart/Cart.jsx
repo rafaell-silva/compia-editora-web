@@ -69,15 +69,15 @@ export default function Cart() {
               </div>
               
               <div className="quantity-control">
-                <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                <button type="button" onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
                 <span>{item.quantity}</span>
-                <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                <button type="button" onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
               </div>
               
               <div className="cart-item__subtotal">
                 R$ {(item.price * item.quantity).toFixed(2)}
                 <br/>
-                <button className="cart-item__remove" onClick={() => removeFromCart(item.id)}>Remover</button>
+                <button type="button" className="cart-item__remove" onClick={() => removeFromCart(item.id)}>Remover</button>
               </div>
             </div>
           ))}
@@ -93,7 +93,7 @@ export default function Cart() {
               onChange={(e) => setCep(e.target.value)} 
               maxLength="9"
             />
-            <button className="btn btn--secondary" onClick={calculateShipping} disabled={isCalculating}>
+            <button type="button" className="btn btn--secondary" onClick={calculateShipping} disabled={isCalculating}>
               {isCalculating ? 'Calculando...' : 'Calcular'}
             </button>
           </div>

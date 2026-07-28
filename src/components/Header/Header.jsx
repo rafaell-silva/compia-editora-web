@@ -37,7 +37,7 @@ export default function Header() {
                 <li><Link href="/admin" className="header__nav-link header__nav-link--admin">Admin</Link></li>
               )}
               <li>
-                <button onClick={logout} className="header__navlink header__nav-link--btn" aria-label={`Sair da conta de ${user.name}`}>
+                <button type="button" onClick={logout} className="header__navlink header__nav-link--btn" aria-label={`Sair da conta de ${user.name}`}>
                   Sair ({user.name.split(' ')[0]})
                 </button>
               </li>

@@ -64,12 +64,14 @@ export default function ProductList({ products, isLoading = false }) {
               <p className="product-card__price">R$ {product.price.toFixed(2)}</p>
               <div className="product-card__actions">
                 <button 
+                  type="button"
                   className="btn product-card__btn"
                   onClick={() => handleAdd(product)}
                 >
                   Adicionar
                 </button>
                 <button 
+                  type="button"
                   className={`product-card__wishlist ${isInWishlist(product.id) ? 'active' : ''}`}
                   onClick={() => handleWishlist(product)}
                   aria-label={isInWishlist(product.id) ? 'Remover da lista de desejos' : 'Adicionar à lista de desejos'}

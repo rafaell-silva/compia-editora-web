@@ -17,7 +17,7 @@ export default function ProductDetail({ params }) {
     return (
       <div className="product-detail-not-found">
         <h2>Produto não encontrado</h2>
-        <button className="btn" onClick={() => router.push('/')}>
+        <button type="button" className="btn" onClick={() => router.push('/')}>
           Voltar ao catálogo
         </button>
       </div>
@@ -31,7 +31,7 @@ export default function ProductDetail({ params }) {
 
   return (
     <div className="product-detail">
-      <button className="product-detail__back" onClick={() => router.back()}>
+      <button type="button" className="product-detail__back" onClick={() => router.back()}>
         &larr; Voltar
       </button>
 
@@ -64,7 +64,7 @@ export default function ProductDetail({ params }) {
           </div>
 
           <div className="product-detail__actions">
-            <button className="btn product-detail__add-btn" onClick={handleAddToCart}>
+            <button type="button" className="btn product-detail__add-btn" onClick={handleAddToCart}>
               Adicionar ao Carrinho
             </button>
           </div>

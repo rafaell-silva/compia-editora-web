@@ -48,12 +48,14 @@ export default function AdminPage() {
 
       <div className="admin-tabs">
         <button 
+          type="button"
           className={`admin-tab ${activeTab === 'orders' ? 'active' : ''}`}
           onClick={() => setActiveTab('orders')}
         >
           Pedidos ({orders.length})
         </button>
         <button 
+          type="button"
           className={`admin-tab ${activeTab === 'products' ? 'active' : ''}`}
           onClick={() => setActiveTab('products')}
         >

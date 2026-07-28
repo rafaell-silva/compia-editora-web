@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 import './login.css';
 
@@ -69,9 +68,9 @@ export default function LoginPage() {
 
         <div className="login-toggle">
           {isRegistering ? (
-            <p>Já tem uma conta? <button onClick={() => setIsRegistering(false)}>Entrar</button></p>
+            <p>Já tem uma conta? <button type="button" onClick={() => setIsRegistering(false)}>Entrar</button></p>
           ) : (
-            <p>Não tem uma conta? <button onClick={() => setIsRegistering(true)}>Criar conta</button></p>
+            <p>Não tem uma conta? <button type="button" onClick={() => setIsRegistering(true)}>Criar conta</button></p>
           )}
         </div>
 

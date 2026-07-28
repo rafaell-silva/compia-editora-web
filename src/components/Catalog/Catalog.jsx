@@ -33,6 +33,7 @@ export default function Catalog({ initialProducts, categories }) {
         {categories.map(cat => (
           <button 
             key={cat} 
+            type="button"
             className={`catalog__filter-btn ${activeCategory === cat ? 'active' : ''}`}
             onClick={() => setActiveCategory(cat)}
           >

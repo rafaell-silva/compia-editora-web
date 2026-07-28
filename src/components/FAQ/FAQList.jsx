@@ -47,6 +47,7 @@ export default function FAQList() {
           className={`faq__item ${openIndex === index ? 'faq__item--open' : ''}`}
         >
           <button 
+            type="button"
             className="faq__question"
             onClick={() => toggleFAQ(index)}
             aria-expanded={openIndex === index}

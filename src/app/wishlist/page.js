@@ -50,12 +50,14 @@ export default function WishlistPage() {
               
               <div className="wishlist-card__actions">
                 <button 
+                  type="button"
                   className="btn"
                   onClick={() => handleAddToCart(product)}
                 >
                   Adicionar ao Carrinho
                 </button>
                 <button 
+                  type="button"
                   className="btn btn--secondary"
                   onClick={() => removeFromWishlist(product.id)}
                 >
