@@ -40,6 +40,11 @@
   font-size: 1rem;
 }
 
+.form-group input.input--error {
+  border-color: #e74c3c;
+  background-color: #fdf2f2;
+}
+
 .form-group.row {
   display: flex;
   gap: 1rem;
@@ -47,6 +52,19 @@
 
 .form-group.row input {
   flex: 1;
+}
+
+.form-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-error {
+  color: #e74c3c;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  display: block;
 }
 
 .payment-methods {
