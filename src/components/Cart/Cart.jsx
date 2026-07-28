@@ -5,27 +5,32 @@ import { useCart } from '../../context/CartContext';
 import Link from 'next/link';
 
 export default function Cart() {
-  const { cartItems, removeFromCart, updateQuantity, cartTotalPrice } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, cartSubtotal, cartShipping, cartTotalPrice, updateShipping, selectedShipping } = useCart();
   
   const [cep, setCep] = useState('');
   const [shippingOptions, setShippingOptions] = useState([]);
-  const [selectedShipping, setSelectedShipping] = useState(0);
   const [isCalculating, setIsCalculating] = useState(false);
 
   const calculateShipping = () => {
     if (cep.length < 8) return;
     setIsCalculating(true);
     
-    // Simulating API call
     setTimeout(() => {
-      setShippingOptions([
+      const options = [
         { id: 'correios', name: 'Correios PAC', price: 15.90, time: '7 a 10 dias úteis' },
         { id: 'sedex', name: 'Sedex Expresso', price: 35.50, time: '2 a 3 dias úteis' },
         { id: 'loja', name: 'Retirada na Loja', price: 0, time: 'A partir de amanhã' }
-      ]);
-      setSelectedShipping(15.90);
+      ];
+      setShippingOptions(options);
+      if (!selectedShipping.option) {
+        updateShipping(options[0], options[0].price);
+      }
       setIsCalculating(false);
     }, 800);
+  };
+
+  const handleShippingChange = (option) => {
+    updateShipping(option, option.price);
   };
 
   if (cartItems.length === 0) {
@@ -37,8 +42,6 @@ export default function Cart() {
       </div>
     );
   }
-
-  const finalTotal = cartTotalPrice + selectedShipping;
 
   return (
     <div className="cart-layout">
@@ -102,9 +105,8 @@ export default function Cart() {
                   <input 
                     type="radio" 
                     name="shipping" 
-                    value={option.price} 
-                    checked={selectedShipping === option.price}
-                    onChange={() => setSelectedShipping(option.price)}
+                    checked={selectedShipping.option?.id === option.id}
+                    onChange={() => handleShippingChange(option)}
                   />
                   <div className="shipping-option__info">
                     <span className="shipping-option__name">{option.name}</span>
@@ -124,16 +126,16 @@ export default function Cart() {
         <h2>Resumo do Pedido</h2>
         <div className="cart-summary__row">
           <span>Subtotal ({cartItems.reduce((acc, item) => acc + item.quantity, 0)} itens)</span>
-          <span>R$ {cartTotalPrice.toFixed(2)}</span>
+          <span>R$ {cartSubtotal.toFixed(2)}</span>
         </div>
         <div className="cart-summary__row">
           <span>Frete</span>
-          <span>{selectedShipping === 0 ? (shippingOptions.length > 0 ? 'Grátis' : 'A calcular') : `R$ ${selectedShipping.toFixed(2)}`}</span>
+          <span>{selectedShipping.option ? (selectedShipping.price === 0 ? 'Grátis' : `R$ ${cartShipping.toFixed(2)}`) : 'A calcular'}</span>
         </div>
         <hr />
         <div className="cart-summary__total">
           <span>Total</span>
-          <span>R$ {finalTotal.toFixed(2)}</span>
+          <span>R$ {cartTotalPrice.toFixed(2)}</span>
         </div>
         <Link href="/checkout" className="btn cart-summary__btn" style={{textAlign: 'center'}}>
           Finalizar Compra

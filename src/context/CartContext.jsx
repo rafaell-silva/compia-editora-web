@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
 const STORAGE_KEY = 'comperia-cart';
+const SHIPPING_KEY = 'comperia-shipping';
 
 function getInitialCart() {
   if (typeof window === 'undefined') return [];
@@ -14,12 +15,27 @@ function getInitialCart() {
   }
 }
 
+function getInitialShipping() {
+  if (typeof window === 'undefined') return { option: null, price: 0 };
+  try {
+    const stored = localStorage.getItem(SHIPPING_KEY);
+    return stored ? JSON.parse(stored) : { option: null, price: 0 };
+  } catch {
+    return { option: null, price: 0 };
+  }
+}
+
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState(getInitialCart);
+  const [selectedShipping, setSelectedShipping] = useState(getInitialShipping);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cartItems));
   }, [cartItems]);
+
+  useEffect(() => {
+    localStorage.setItem(SHIPPING_KEY, JSON.stringify(selectedShipping));
+  }, [selectedShipping]);
 
   const addToCart = (product) => {
     setCartItems(prev => {
@@ -42,13 +58,32 @@ export function CartProvider({ children }) {
 
   const clearCart = () => {
     setCartItems([]);
+    setSelectedShipping({ option: null, price: 0 });
+  };
+
+  const updateShipping = (option, price) => {
+    setSelectedShipping({ option, price });
   };
 
   const cartTotalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const cartTotalPrice = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  const cartSubtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  const cartShipping = selectedShipping.price;
+  const cartTotalPrice = cartSubtotal + cartShipping;
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, clearCart, cartTotalItems, cartTotalPrice }}>
+    <CartContext.Provider value={{
+      cartItems,
+      addToCart,
+      removeFromCart,
+      updateQuantity,
+      clearCart,
+      selectedShipping,
+      updateShipping,
+      cartTotalItems,
+      cartSubtotal,
+      cartShipping,
+      cartTotalPrice
+    }}>
       {children}
     </CartContext.Provider>
   );

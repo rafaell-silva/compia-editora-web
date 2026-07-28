@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '../../context/CartContext';
+import { useOrders } from '../../context/OrderContext';
 import './checkout.css';
 
 const validators = {
@@ -23,14 +24,38 @@ function validateField(name, value) {
   return validator ? validator(value) : '';
 }
 
+function generatePixKey() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  for (let i = 0; i < 32; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+function getCardBrand(number) {
+  const cleaned = number.replace(/\D/g, '');
+  if (/^4/.test(cleaned)) return 'Visa';
+  if (/^5[1-5]/.test(cleaned) || /^2[2-7]/.test(cleaned)) return 'MasterCard';
+  if (/^4011|^4312|^4389/.test(cleaned)) return 'Elo';
+  if (/^3[47]/.test(cleaned)) return 'American Express';
+  if (/^6(?:011|5)/.test(cleaned)) return 'Discover';
+  return null;
+}
+
 export default function Checkout() {
-  const { cartItems = [], cartTotalPrice = 0 } = useCart() || {};
+  const { cartItems = [], cartSubtotal = 0, cartShipping = 0, cartTotalPrice = 0, clearCart } = useCart() || {};
+  const { createOrder } = useOrders() || {};
   const [paymentMethod, setPaymentMethod] = useState('credit_card');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [orderId, setOrderId] = useState(null);
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
+  const [copiedPix, setCopiedPix] = useState(false);
+  const [cardBrand, setCardBrand] = useState(null);
 
-  const finalTotal = cartTotalPrice > 0 ? Number(cartTotalPrice) + 15.90 : 0;
+  const pixKey = generatePixKey();
+  const pixCode = `00020101021126580014br.gov.bcb.pix0136${pixKey}5204000053039865404${cartTotalPrice.toFixed(2)}5802BR5913COMPIA EDITORA6009SAO PAULO62070503***6304`;
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -43,6 +68,26 @@ export default function Checkout() {
     if (touched[name]) {
       setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
     }
+    if (name === 'cardNumber') {
+      setCardBrand(getCardBrand(value));
+    }
+  };
+
+  const handleCopyPix = async () => {
+    try {
+      await navigator.clipboard.writeText(pixCode);
+      setCopiedPix(true);
+      setTimeout(() => setCopiedPix(false), 2000);
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = pixCode;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      setCopiedPix(true);
+      setTimeout(() => setCopiedPix(false), 2000);
+    }
   };
 
   const handleCheckout = (e) => {
@@ -52,19 +97,49 @@ export default function Checkout() {
     const newErrors = {};
     let hasError = false;
 
-    for (const [name, validator] of Object.entries(validators)) {
-      const value = formData.get(name) || '';
-      const error = validator(value);
-      if (error) {
-        newErrors[name] = error;
-        hasError = true;
+    const fieldsToValidate = paymentMethod === 'credit_card'
+      ? Object.keys(validators)
+      : Object.keys(validators).filter(k => !k.startsWith('card'));
+
+    for (const name of fieldsToValidate) {
+      const validator = validators[name];
+      if (validator) {
+        const value = formData.get(name) || '';
+        const error = validator(value);
+        if (error) {
+          newErrors[name] = error;
+          hasError = true;
+        }
       }
     }
 
     setErrors(newErrors);
-    setTouched(Object.keys(validators).reduce((acc, key) => ({ ...acc, [key]: true }), {}));
+    setTouched(fieldsToValidate.reduce((acc, key) => ({ ...acc, [key]: true }), {}));
 
     if (!hasError) {
+      const customerData = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        address: {
+          cep: formData.get('cep'),
+          state: formData.get('state'),
+          street: formData.get('street'),
+          number: formData.get('number'),
+          complement: formData.get('complement')
+        }
+      };
+
+      const order = createOrder({
+        items: cartItems,
+        shipping: { method: 'Correios PAC', price: cartShipping },
+        paymentMethod,
+        customerData,
+        total: cartTotalPrice
+      });
+
+      setOrderId(order.id);
+      clearCart();
       setIsSuccess(true);
     }
   };
@@ -74,9 +149,13 @@ export default function Checkout() {
   if (isSuccess) {
     return (
       <div className="checkout-success">
-        <h2>🎉 Pedido Realizado com Sucesso!</h2>
+        <h2>Pedido Realizado com Sucesso!</h2>
+        <p className="checkout-success__order-id">Pedido: <strong>{orderId}</strong></p>
         <p>Agradecemos por comprar na COMPIA Editora. Em breve você receberá um e-mail com os detalhes do envio.</p>
-        <Link href="/" className="btn">Voltar ao Catálogo</Link>
+        <div className="checkout-success__actions">
+          <Link href="/" className="btn">Voltar ao Catálogo</Link>
+          <Link href="/pedidos" className="btn btn--secondary">Meus Pedidos</Link>
+        </div>
       </div>
     );
   }
@@ -143,8 +222,9 @@ export default function Checkout() {
 
             {paymentMethod === 'credit_card' && (
               <div className="payment-details credit-card-form">
+                {cardBrand && <span className="card-brand">{cardBrand}</span>}
                 <div className="form-group">
-                  <input type="text" name="cardNumber" placeholder="Número do Cartão" required className={inputClass('cardNumber')} onBlur={handleBlur} onChange={handleChange} />
+                  <input type="text" name="cardNumber" placeholder="Número do Cartão" required className={inputClass('cardNumber')} onBlur={handleBlur} onChange={handleChange} maxLength="19" />
                   {touched.cardNumber && errors.cardNumber && <span className="form-error">{errors.cardNumber}</span>}
                 </div>
                 <div className="form-group">
@@ -153,11 +233,11 @@ export default function Checkout() {
                 </div>
                 <div className="form-group row">
                   <div className="form-field">
-                    <input type="text" name="cardExpiry" placeholder="Validade (MM/AA)" required className={inputClass('cardExpiry')} onBlur={handleBlur} onChange={handleChange} />
+                    <input type="text" name="cardExpiry" placeholder="Validade (MM/AA)" required className={inputClass('cardExpiry')} onBlur={handleBlur} onChange={handleChange} maxLength="5" />
                     {touched.cardExpiry && errors.cardExpiry && <span className="form-error">{errors.cardExpiry}</span>}
                   </div>
                   <div className="form-field">
-                    <input type="text" name="cardCvv" placeholder="CVV" required className={inputClass('cardCvv')} onBlur={handleBlur} onChange={handleChange} />
+                    <input type="text" name="cardCvv" placeholder="CVV" required className={inputClass('cardCvv')} onBlur={handleBlur} onChange={handleChange} maxLength="4" />
                     {touched.cardCvv && errors.cardCvv && <span className="form-error">{errors.cardCvv}</span>}
                   </div>
                 </div>
@@ -168,14 +248,16 @@ export default function Checkout() {
               <div className="payment-details pix-form">
                 <p>Escaneie o QR Code abaixo com o aplicativo do seu banco:</p>
                 <div className="pix-qrcode">
-                  {/* Fake QR CODE CSS Box */}
                   <div className="fake-qr"></div>
                 </div>
                 <p>Ou utilize a chave Copia e Cola:</p>
                 <div className="pix-copy-paste">
-                  <code>00020101021126580014br.gov.bcb.pix0136compia-editora-fake-pix-9999</code>
-                  <button type="button" className="btn btn--secondary">Copiar</button>
+                  <code className="pix-key">{pixCode}</code>
+                  <button type="button" className="btn btn--secondary" onClick={handleCopyPix}>
+                    {copiedPix ? 'Copiado!' : 'Copiar'}
+                  </button>
                 </div>
+                <p className="pix-info">O pagamento será confirmado automaticamente em até 10 minutos.</p>
               </div>
             )}
           </div>
@@ -195,15 +277,15 @@ export default function Checkout() {
         <hr />
         <div className="summary-row">
           <span>Subtotal</span>
-          <span>R$ {Number(cartTotalPrice).toFixed(2)}</span>
+          <span>R$ {Number(cartSubtotal).toFixed(2)}</span>
         </div>
         <div className="summary-row">
-          <span>Frete (Fixo Exemplo)</span>
-          <span>R$ 15.90</span>
+          <span>Frete</span>
+          <span>{cartShipping === 0 ? 'Grátis' : `R$ ${Number(cartShipping).toFixed(2)}`}</span>
         </div>
         <div className="summary-total">
           <span>Total a Pagar</span>
-          <span>R$ {Number(finalTotal).toFixed(2)}</span>
+          <span>R$ {Number(cartTotalPrice).toFixed(2)}</span>
         </div>
         
         <button type="submit" form="checkout-form" className="btn checkout-btn">
