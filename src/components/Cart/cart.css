@@ -51,12 +51,37 @@
   align-items: center;
 }
 
-.cart-item__image {
+.book-cover--cart {
   width: 50px;
   height: 75px;
-  border-radius: 4px;
   flex-shrink: 0;
-  box-shadow: inset 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.book-cover--cart .book-cover__front {
+  padding: 0.3rem;
+}
+
+.book-cover--cart .book-cover__author {
+  font-size: 0.35rem;
+  letter-spacing: 0.3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.book-cover--cart .book-cover__title {
+  font-size: 0.4rem;
+  margin: 0.2rem 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.1;
+}
+
+.book-cover--cart .book-cover__publisher {
+  font-size: 0.3rem;
+  padding-top: 0.15rem;
 }
 
 .cart-item__details {

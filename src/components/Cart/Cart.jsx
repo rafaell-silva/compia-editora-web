@@ -57,7 +57,14 @@ export default function Cart() {
           {cartItems.map(item => (
             <div key={item.id} className="cart-item">
               <div className="cart-item__product">
-                <div className="cart-item__image" style={{ backgroundColor: item.color }}></div>
+                <div className="book-cover book-cover--cart" style={{ '--book-color': item.color }}>
+                  <div className="book-cover__spine"></div>
+                  <div className="book-cover__front">
+                    <span className="book-cover__author">{item.author}</span>
+                    <h3 className="book-cover__title">{item.name}</h3>
+                    <div className="book-cover__publisher">COMPIA</div>
+                  </div>
+                </div>
                 <div className="cart-item__details">
                   <h3>{item.name}</h3>
                   <p className="cart-item__author">{item.author}</p>
