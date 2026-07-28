@@ -23,7 +23,8 @@ A interface visual estática e de comportamento (UX/UI) já foi estruturada base
 - **Next.js 16 (App Router)** com React 19.
 - **CSS Vanilla (Puro)** estruturado utilizando a rigorosa metodologia **BEM** (Block Element Modifier), garantindo total separação entre lógica HTML/JS e estilos, sem uso de *frameworks* de CSS.
 - **React Context API** para o gerenciamento de estado global (Carrinho, Pedidos, Autenticação).
-- **GitHub Actions (CI/CD)** implementado para builds, lint, testes e security audit.
+- **Vercel** para deploy automático a cada push na branch `main`.
+- **GitHub Actions (CI/CD)** para build, lint, testes e security audit.
 - **Jest + Testing Library** para testes unitários.
 
 ### Funcionalidades Front-end Concluídas
@@ -217,3 +218,4 @@ src/
 | Testing Library | 16.x | Testes de componentes |
 | ESLint | 9.x | Análise de código |
 | GitHub Actions | - | CI/CD |
+| Vercel | - | Deploy |
