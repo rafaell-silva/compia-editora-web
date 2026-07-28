@@ -3,15 +3,24 @@ import { useState } from 'react';
 import Link from 'next/link';
 import './productList.css';
 import { useCart } from '../../context/CartContext';
+import { useWishlist } from '../../context/WishlistContext';
 import { SkeletonCard } from '../Skeleton/Skeleton';
 
 export default function ProductList({ products, isLoading = false }) {
   const { addToCart } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
   const [toastMessage, setToastMessage] = useState('');
 
   const handleAdd = (product) => {
     addToCart(product);
     setToastMessage(`"${product.name}" adicionado ao carrinho!`);
+    setTimeout(() => setToastMessage(''), 3000);
+  };
+
+  const handleWishlist = (product) => {
+    toggleWishlist(product);
+    const action = isInWishlist(product.id) ? 'removido da' : 'adicionado à';
+    setToastMessage(`"${product.name}" ${action} lista de desejos!`);
     setTimeout(() => setToastMessage(''), 3000);
   };
 
@@ -53,12 +62,21 @@ export default function ProductList({ products, isLoading = false }) {
               </Link>
               <p className="product-card__category">{product.category}</p>
               <p className="product-card__price">R$ {product.price.toFixed(2)}</p>
-              <button 
-                className="btn product-card__btn"
-                onClick={() => handleAdd(product)}
-              >
-                Adicionar
-              </button>
+              <div className="product-card__actions">
+                <button 
+                  className="btn product-card__btn"
+                  onClick={() => handleAdd(product)}
+                >
+                  Adicionar
+                </button>
+                <button 
+                  className={`product-card__wishlist ${isInWishlist(product.id) ? 'active' : ''}`}
+                  onClick={() => handleWishlist(product)}
+                  aria-label={isInWishlist(product.id) ? 'Remover da lista de desejos' : 'Adicionar à lista de desejos'}
+                >
+                  {isInWishlist(product.id) ? '❤️' : '🤍'}
+                </button>
+              </div>
             </div>
           </article>
         ))}

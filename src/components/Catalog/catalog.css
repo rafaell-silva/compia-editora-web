@@ -4,6 +4,27 @@
   margin: 0 auto;
 }
 
+.catalog__search {
+  margin-bottom: 2rem;
+}
+
+.catalog__search-input {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: block;
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.catalog__search-input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+}
+
 .catalog__filters {
   display: flex;
   gap: 1rem;

@@ -1,0 +1,82 @@
+.contato-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.contato-page h1 {
+  color: var(--text-color);
+  margin-bottom: 2rem;
+}
+
+.contato-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.contato-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.contato-form__group {
+  margin-bottom: 1.5rem;
+}
+
+.contato-form__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.contato-form__input,
+.contato-form__textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+}
+
+.contato-form__input:focus,
+.contato-form__textarea:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+}
+
+.contato-form__input.error,
+.contato-form__textarea.error {
+  border-color: #dc3545;
+}
+
+.contato-form__error {
+  display: block;
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.contato-form__textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contato-form__submit {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.contato-form__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

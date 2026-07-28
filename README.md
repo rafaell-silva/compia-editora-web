@@ -114,8 +114,8 @@ A interface visual estática e de comportamento (UX/UI) já foi estruturada base
 
 ### C. Melhorias de Frontend
 - [ ] **Wishlist:** Funcionalidade de lista de desejos.
+- [ ] **Barra de Busca:** Funcionalidade no catalogo para buscar por livros que funciona por nome de autor ou do proprio livro
 - [ ] **Página de Contato:** Formulário com validação e envio.
-- [ ] **Testes de Integração:** Testes E2E com Playwright ou Cypress.
 - [ ] **Acessibilidade (a11y):** Melhorar contraste, aria-labels e navegação por teclado.
 
 ---

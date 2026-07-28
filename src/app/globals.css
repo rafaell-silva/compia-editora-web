@@ -4,7 +4,7 @@
   --primary-color: #8B0000; /* Dark Red */
   --secondary-color: #5C4033; /* Dark Brown */
   --background-color: #FFFFFF;
-  --text-color: #333333;
+  --text-color: #1a1a1a;
   --text-light: #F5F5F5;
   --font-heading: 'Merriweather', serif;
   --font-body: 'Outfit', sans-serif;
@@ -25,11 +25,33 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  color: var(--text-color);
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/* Skip to main content link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Focus styles for keyboard navigation */
+:focus-visible {
+  outline: 3px solid var(--secondary-color);
+  outline-offset: 2px;
 }
 
 /* Base button style (BEM) */
@@ -50,9 +72,35 @@ a {
   background-color: #a50000;
 }
 
+.btn:focus-visible {
+  outline: 3px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
 .btn--secondary {
   background-color: var(--secondary-color);
 }
 .btn--secondary:hover {
   background-color: #735040;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --text-color: #000000;
+    --text-light: #FFFFFF;
+  }
+  
+  .btn {
+    border: 2px solid currentColor;
+  }
 }

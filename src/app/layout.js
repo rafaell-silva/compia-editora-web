@@ -4,6 +4,7 @@ import Footer from '../components/Footer/Footer';
 import { CartProvider } from '../context/CartContext';
 import { OrderProvider } from '../context/OrderContext';
 import { AuthProvider } from '../context/AuthContext';
+import { WishlistProvider } from '../context/WishlistContext';
 
 export const metadata = {
   title: 'COMPIA Editora - E-commerce',
@@ -14,14 +15,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <body>
+        <a href="#main-content" className="skip-link">Pular para o conteúdo principal</a>
         <AuthProvider>
           <CartProvider>
             <OrderProvider>
-              <Header />
-              <main className="main-content">
-                {children}
-              </main>
-              <Footer />
+              <WishlistProvider>
+                <Header />
+                <main id="main-content" className="main-content">
+                  {children}
+                </main>
+                <Footer />
+              </WishlistProvider>
             </OrderProvider>
           </CartProvider>
         </AuthProvider>
