@@ -30,6 +30,12 @@ A interface visual estática e de comportamento (UX/UI) já foi estruturada base
 - [x] **Carrinho de Compras Global:** Adição e remoção de itens em tempo real, subtotal dinâmico, *Toast notifications* de feedback e badge reativo no topo da página.
 - [x] **Calculadora de Frete (Visual):** Formulário de CEP que simula as tarifas das transportadoras no carrinho.
 - [x] **Página de Checkout (Finalização):** Fluxo isolado para inserção de dados pessoais, endereço e duas abas de pagamento (Cartão de Crédito e PIX — com a renderização de um QR Code gerado visualmente).
+- [x] **Persistência do Carrinho:** Salvamento automático dos itens no `localStorage` para persistência entre sessões.
+- [x] **Página 404 Customizada:** Página de erro amigável com design alinhado à identidade visual da marca.
+- [x] **Validação de Formulários:** Validação em tempo real dos campos do Checkout (email, CEP, telefone, cartão de crédito) com mensagens de erro claras.
+- [x] **Página de Detalhes do Produto:** Rota `/produto/[id]` com informações detalhadas do livro, capa 3D e botão de adicionar ao carrinho.
+- [x] **Loading Skeletons:** Componentes de carregamento visual (Skeleton, SkeletonCard, SkeletonText) para melhorar a UX durante requisições.
+- [x] **Páginas Estáticas:** Páginas `/sobre` (história, missão e valores da editora) e `/faq` (perguntas frequentes com accordion interativo).
 
 ---
 
@@ -48,6 +54,14 @@ A base visual está consolidada. O roadmap a seguir lista os requisitos ainda pe
 - [ ] **Fluxo de Distribuição:**
   - Integrar disparos automáticos de e-mail transacional (confirmação, envio, rastreio).
   - Desenvolver a lógica e linkagem segura (área restrita) para a entrega automática de produtos digitais (e-books).
+
+### C. Melhorias de Frontend (Extra)
+- [ ] **Páginas de Autores:** Listagem e perfil dos autores da editora.
+- [ ] **Sistema de Busca:** Campo de busca para encontrar produtos por título, autor ou categoria.
+- [ ] **Wishlist:** Funcionalidade de lista de desejos para salvar produtos.
+- [ ] **Testes Unitários:** Configurar Jest + testes para components e services.
+- [ ] **SEO Avançado:** Sitemap dinâmico, Open Graph tags, structured data (JSON-LD).
+- [ ] **Página de Contato:** Formulário de contato com validação e envio.
 
 ---
 
