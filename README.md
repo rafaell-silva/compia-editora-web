@@ -104,17 +104,11 @@ A interface visual estática e de comportamento (UX/UI) já foi estruturada base
 
 ## 5. Roadmap (Próximos Passos e Integrações)
 
-### A. Integração com Backend (WooCommerce)
+### Integração com Backend (WooCommerce)
 - [ ] **Configuração do Servidor CMS:** Levantar um servidor (PHP 8+, MySQL/MariaDB, HTTPS) com WordPress e WooCommerce instalado.
 - [ ] **Conexão API REST:** Substituir os arquivos *mockados* no frontend (`services/api.js`) por requisições autênticas para a API REST do WooCommerce.
 - [ ] **Autenticação Real:** Integrar JWT ou session-based auth com WordPress.
 - [ ] **Segurança e Níveis de Acesso:** Configurar no WordPress os perfis (Admin, Editor, Vendedor) e logs de atividade.
-
-### B. Módulos de Terceiros e Logística
-- [ ] **Gateway de Pagamento Real:** Integrar Stripe, Mercado Pago ou PagSeguro para processamento real de cartões e geração de QR Code PIX.
-- [ ] **Cálculo de Frete Real:** Conectar API dos Correios ou transportadoras privadas.
-- [ ] **E-mails Transacionais:** Integração com SendGrid, Mailgun ou SES para confirmação, envio e rastreio.
-- [ ] **Entrega de E-books:** Link de download seguro ou área restrita para produtos digitais.
 
 ---
 
