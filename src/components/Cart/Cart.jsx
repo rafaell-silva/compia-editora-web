@@ -5,7 +5,7 @@ import { useCart } from '../../context/CartContext';
 import Link from 'next/link';
 
 export default function Cart() {
-  const { cartItems, removeFromCart, updateQuantity, cartSubtotal, cartTotalPrice, updateShipping, selectedShipping } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, cartSubtotal, cartShipping, cartTotalPrice, updateShipping, selectedShipping } = useCart();
   
   const [cep, setCep] = useState('');
   const [shippingOptions, setShippingOptions] = useState([]);
@@ -33,11 +33,12 @@ export default function Cart() {
     updateShipping(option, option.price);
   };
 
-  if (cartItems.length === 0) {
-  
-  // const shippingDisplay = selectedShipping.option ? (selectedShipping.price === 0 ? 'Grátis' : `R$ ${cartShipping.toFixed(2)}`) : 'A calcular';
+  const shippingDisplay = selectedShipping.option
+    ? (selectedShipping.price === 0 ? 'Grátis' : `R$ ${cartShipping.toFixed(2)}`)
+    : 'A calcular';
 
-  return (
+  if (cartItems.length === 0) {
+    return (
       <div className="cart-empty">
         <h2>Seu carrinho está vazio.</h2>
         <p>Volte ao catálogo para adicionar livros incríveis!</p>
