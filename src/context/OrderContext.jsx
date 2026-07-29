@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 
 const OrderContext = createContext();
 const STORAGE_KEY = 'comperia-orders';
@@ -69,14 +69,16 @@ export function OrderProvider({ children }) {
     }));
   };
 
+  const value = useMemo(() => ({
+    orders,
+    createOrder,
+    getOrderById,
+    getOrdersByEmail,
+    updateOrderStatus
+  }), [orders, createOrder, getOrderById, getOrdersByEmail, updateOrderStatus]);
+
   return (
-    <OrderContext.Provider value={{
-      orders,
-      createOrder,
-      getOrderById,
-      getOrdersByEmail,
-      updateOrderStatus
-    }}>
+    <OrderContext.Provider value={value}>
       {children}
     </OrderContext.Provider>
   );

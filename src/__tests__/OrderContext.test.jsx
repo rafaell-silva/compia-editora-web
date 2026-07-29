@@ -30,7 +30,7 @@ describe('OrderContext', () => {
 
     expect(order).toHaveProperty('id');
     expect(order.status).toBe('pending');
-    expect(result.current.orders.length).toBe(1);
+    expect(result.current.orders).toHaveLength(1);
   });
 
   test('retrieves order by id', () => {
@@ -73,7 +73,7 @@ describe('OrderContext', () => {
     });
 
     const found = result.current.getOrdersByEmail('test@email.com');
-    expect(found.length).toBe(1);
+    expect(found).toHaveLength(1);
     expect(found[0].customerData.email).toBe('test@email.com');
   });
 
@@ -97,6 +97,6 @@ describe('OrderContext', () => {
 
     const updated = result.current.getOrderById(order.id);
     expect(updated.status).toBe('confirmed');
-    expect(updated.statusHistory.length).toBe(2);
+    expect(updated.statusHistory).toHaveLength(2);
   });
 });

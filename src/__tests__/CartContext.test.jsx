@@ -24,7 +24,7 @@ describe('CartContext', () => {
       result.current.addToCart(product);
     });
 
-    expect(result.current.cartItems.length).toBe(1);
+    expect(result.current.cartItems).toHaveLength(1);
     expect(result.current.cartItems[0].quantity).toBe(1);
     expect(result.current.cartTotalItems).toBe(1);
   });
@@ -38,7 +38,7 @@ describe('CartContext', () => {
       result.current.addToCart(product);
     });
 
-    expect(result.current.cartItems.length).toBe(1);
+    expect(result.current.cartItems).toHaveLength(1);
     expect(result.current.cartItems[0].quantity).toBe(2);
     expect(result.current.cartTotalItems).toBe(2);
     expect(result.current.cartTotalPrice).toBe(100);
@@ -52,13 +52,13 @@ describe('CartContext', () => {
       result.current.addToCart(product);
     });
 
-    expect(result.current.cartItems.length).toBe(1);
+    expect(result.current.cartItems).toHaveLength(1);
 
     act(() => {
       result.current.removeFromCart(1);
     });
 
-    expect(result.current.cartItems.length).toBe(0);
+    expect(result.current.cartItems).toHaveLength(0);
   });
 
   test('updates quantity', () => {

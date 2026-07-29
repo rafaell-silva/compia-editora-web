@@ -14,7 +14,7 @@ export default function ContatoPage() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[^\s@]+@[^\s@]+\.[a-z]+$/.test(email);
   };
 
   const validate = () => {

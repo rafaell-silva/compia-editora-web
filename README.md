@@ -1,4 +1,8 @@
-# COMPIA Editora - E-commerce (Headless WordPress + Next.js)
+# COMPIA Editora - E-commerce
+
+## Integrantes
+- Rafael Barreto da Silva (123110738)
+- Igor Raffael Menezes de Melo (123110549)
 
 ## 1. Apresentação
 A **COMPIA Editora** é uma iniciativa voltada para a publicação e disseminação de conteúdos de alta qualidade na área de Inteligência Artificial. Seu propósito é oferecer livros, revistas e materiais digitais que auxiliem tanto estudantes quanto profissionais a aprofundarem seus conhecimentos em temas como arquitetura de software inteligente, inteligência artificial, blockchain, criptografia e cibersegurança. 
@@ -11,10 +15,7 @@ A editora se destaca por unir rigor técnico com uma linguagem acessível, torna
 **Motivação:** Superar a barreira logística e permitir a venda virtual de todos os itens produzidos pela editora para um público interessado nas áreas de Tecnologia e Inteligência Artificial.
 
 **Estratégia Arquitetural:** 
-Para alcançar um desenvolvimento rápido (1 mês), moderno e fácil de gerenciar, a plataforma utiliza a arquitetura **Headless**. 
-O projeto é dividido em:
-- **Frontend (Este Repositório):** Construído com React (Next.js) visando alta performance e hospedagem otimizada na **Vercel**.
-- **Backend (Gerenciador):** A ser hospedado separadamente usando **WordPress + WooCommerce** (PHP/MySQL), entregando facilidade gerencial máxima para a equipe da editora através de um painel amigável.
+Para alcançar um desenvolvimento rápido (1 mês), moderno e fácil de gerenciar, a plataforma utiliza a arquitetura **Headless**. E foi construído com React (Next.js) visando alta performance e hospedagem otimizada na **Vercel**.
 
 ---
 
@@ -102,17 +103,7 @@ A interface visual estática e de comportamento (UX/UI) já foi estruturada base
 
 ---
 
-## 5. Roadmap (Próximos Passos e Integrações)
-
-### Integração com Backend (WooCommerce)
-- [ ] **Configuração do Servidor CMS:** Levantar um servidor (PHP 8+, MySQL/MariaDB, HTTPS) com WordPress e WooCommerce instalado.
-- [ ] **Conexão API REST:** Substituir os arquivos *mockados* no frontend (`services/api.js`) por requisições autênticas para a API REST do WooCommerce.
-- [ ] **Autenticação Real:** Integrar JWT ou session-based auth com WordPress.
-- [ ] **Segurança e Níveis de Acesso:** Configurar no WordPress os perfis (Admin, Editor, Vendedor) e logs de atividade.
-
----
-
-## 6. Como rodar o projeto localmente
+## 5. Como rodar o projeto localmente
 
 ### Pré-requisitos
 - Node.js 20+
@@ -155,12 +146,7 @@ npm run test:watch
 npm run test:coverage
 ```
 
-### Acessos Demo (Login)
-- **Admin:** admin@comperia.com.br / admin123
-
----
-
-## 7. Estrutura do Projeto
+## 6. Estrutura do Projeto
 
 ```
 src/
@@ -191,7 +177,7 @@ src/
 │   ├── CartContext.jsx    # Estado do carrinho
 │   └── OrderContext.jsx   # Sistema de pedidos
 ├── services/              # Serviços de dados
-│   └── api.js             # Mock de dados (pronto para WooCommerce)
+│   └── api.js             # Mock de dados
 └── __tests__/             # Testes unitários
     ├── api.test.js
     ├── AuthContext.test.jsx
@@ -201,7 +187,7 @@ src/
 
 ---
 
-## 8. Tecnologias Utilizadas
+## 7. Tecnologias Utilizadas
 
 | Tecnologia | Versão | Uso |
 |------------|--------|-----|

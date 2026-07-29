@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 
 const CartContext = createContext();
 const STORAGE_KEY = 'comperia-cart';
@@ -39,7 +39,7 @@ export function CartProvider({ children }) {
 
   const addToCart = (product) => {
     setCartItems(prev => {
-      const existing = prev.find(item => item.id === product.id);
+      const existing = prev.some(item => item.id === product.id);
       if (existing) {
         return prev.map(item => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
       }
@@ -70,20 +70,22 @@ export function CartProvider({ children }) {
   const cartShipping = selectedShipping.price;
   const cartTotalPrice = cartSubtotal + cartShipping;
 
+  const value = useMemo(() => ({
+    cartItems,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    clearCart,
+    selectedShipping,
+    updateShipping,
+    cartTotalItems,
+    cartSubtotal,
+    cartShipping,
+    cartTotalPrice
+  }), [cartItems, addToCart, removeFromCart, updateQuantity, clearCart, selectedShipping, updateShipping, cartTotalItems, cartSubtotal, cartShipping, cartTotalPrice]);
+
   return (
-    <CartContext.Provider value={{
-      cartItems,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      clearCart,
-      selectedShipping,
-      updateShipping,
-      cartTotalItems,
-      cartSubtotal,
-      cartShipping,
-      cartTotalPrice
-    }}>
+    <CartContext.Provider value={value}>
       {children}
     </CartContext.Provider>
   );

@@ -5,7 +5,7 @@ import { useCart } from '../../context/CartContext';
 import Link from 'next/link';
 
 export default function Cart() {
-  const { cartItems, removeFromCart, updateQuantity, cartSubtotal, cartShipping, cartTotalPrice, updateShipping, selectedShipping } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, cartSubtotal, cartTotalPrice, updateShipping, selectedShipping } = useCart();
   
   const [cep, setCep] = useState('');
   const [shippingOptions, setShippingOptions] = useState([]);
@@ -34,7 +34,10 @@ export default function Cart() {
   };
 
   if (cartItems.length === 0) {
-    return (
+  
+  // const shippingDisplay = selectedShipping.option ? (selectedShipping.price === 0 ? 'Grátis' : `R$ ${cartShipping.toFixed(2)}`) : 'A calcular';
+
+  return (
       <div className="cart-empty">
         <h2>Seu carrinho está vazio.</h2>
         <p>Volte ao catálogo para adicionar livros incríveis!</p>
@@ -137,7 +140,7 @@ export default function Cart() {
         </div>
         <div className="cart-summary__row">
           <span>Frete</span>
-          <span>{selectedShipping.option ? (selectedShipping.price === 0 ? 'Grátis' : `R$ ${cartShipping.toFixed(2)}`) : 'A calcular'}</span>
+          <span>{shippingDisplay}</span>
         </div>
         <hr />
         <div className="cart-summary__total">

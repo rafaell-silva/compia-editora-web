@@ -12,7 +12,7 @@ export default function Catalog({ initialProducts, categories }) {
     const matchesSearch = searchTerm === '' || 
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (product.tags && product.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
+      (product.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())));
     return matchesCategory && matchesSearch;
   });
 
