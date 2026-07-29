@@ -8,7 +8,7 @@ import './checkout.css';
 
 const validators = {
   name: (v) => v.trim().length < 3 ? 'Nome deve ter pelo menos 3 caracteres' : '',
-  email: (v) => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? 'E-mail inválido' : '',
+  email: (v) => !/^[^\s@]+@[^\s@]+\.[a-z]+$/.test(v) ? 'E-mail inválido' : '',
   phone: (v) => !/^\d{10,11}$/.test(v.replace(/\D/g, '')) ? 'Telefone inválido (DDD + número)' : '',
   cep: (v) => !/^\d{8}$/.test(v.replace(/\D/g, '')) ? 'CEP deve ter 8 dígitos' : '',
   state: (v) => v.trim().length < 2 ? 'Estado obrigatório' : '',
@@ -36,7 +36,7 @@ function generatePixKey() {
 
 function getCardBrand(number) {
   const cleaned = number.replace(/\D/g, '');
-  if (/^4/.test(cleaned)) return 'Visa';
+  if (cleaned.startsWith("4")) return 'Visa';
   if (/^5[1-5]/.test(cleaned) || /^2[2-7]/.test(cleaned)) return 'MasterCard';
   if (/^4011|^4312|^4389/.test(cleaned)) return 'Elo';
   if (/^3[47]/.test(cleaned)) return 'American Express';
@@ -80,14 +80,7 @@ export default function Checkout() {
       setCopiedPix(true);
       setTimeout(() => setCopiedPix(false), 2000);
     } catch {
-      const textarea = document.createElement('textarea');
-      textarea.value = pixCode;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      setCopiedPix(true);
-      setTimeout(() => setCopiedPix(false), 2000);
+      setCopiedPix(false);
     }
   };
 
@@ -213,11 +206,11 @@ export default function Checkout() {
             <div className="payment-methods">
               <label className={`payment-method ${paymentMethod === 'credit_card' ? 'active' : ''}`}>
                 <input type="radio" name="payment" checked={paymentMethod === 'credit_card'} onChange={() => setPaymentMethod('credit_card')} />
-                Cartão de Crédito
+                {' '}Cartão de Crédito
               </label>
               <label className={`payment-method ${paymentMethod === 'pix' ? 'active' : ''}`}>
                 <input type="radio" name="payment" checked={paymentMethod === 'pix'} onChange={() => setPaymentMethod('pix')} />
-                PIX
+                {' '}PIX
               </label>
             </div>
 
@@ -275,7 +268,6 @@ export default function Checkout() {
             </div>
           ))}
         </div>
-        <hr />
         <div className="summary-row">
           <span>Subtotal</span>
           <span>R$ {Number(cartSubtotal).toFixed(2)}</span>

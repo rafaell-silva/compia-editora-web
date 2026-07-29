@@ -71,7 +71,7 @@ export default function PedidosPage() {
 
             <div className="pedido-items">
               {order.items.map((item, idx) => (
-                <div key={idx} className="pedido-item">
+                <div key={item.name} className="pedido-item">
                   <span>{item.quantity}x {item.name}</span>
                   <span>R$ {(item.price * item.quantity).toFixed(2)}</span>
                 </div>

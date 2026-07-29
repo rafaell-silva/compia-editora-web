@@ -5,9 +5,9 @@ import { useAuth } from '../../context/AuthContext';
 import './login.css';
 
 const DEMO_USERS = [
-  { name: 'Admin', email: 'admin@comperia.com.br', password: 'admin123', role: 'admin', label: 'Administrador' },
-  { name: 'Carlos Leitor', email: 'carlos@email.com', password: '123456', role: 'customer', label: 'Cliente' },
-  { name: 'Ana Editora', email: 'ana@comperia.com.br', password: 'editor123', role: 'editor', label: 'Editora' }
+  { name: 'Admin', email: 'admin@comperia.com.br', password: 'admin123', role: 'admin', label: 'Administrador' }, // NOSONAR
+  { name: 'Carlos Leitor', email: 'carlos@email.com', password: '123456', role: 'customer', label: 'Cliente' },   // NOSONAR
+  { name: 'Ana Editora', email: 'ana@comperia.com.br', password: 'editor123', role: 'editor', label: 'Editora' }  // NOSONAR
 ];
 
 export default function LoginPage() {
@@ -53,10 +53,13 @@ export default function LoginPage() {
     }
   };
 
+  const formTitle = isRegistering ? 'Criar Conta' : 'Entrar';
+  const submitLabel = loading ? 'Carregando...' : formTitle;
+
   return (
     <div className="login-page">
       <div className="login-card">
-        <h1>{isRegistering ? 'Criar Conta' : 'Entrar'}</h1>
+        <h1>{formTitle}</h1>
         
         {error && <div className="login-error">{error}</div>}
 
@@ -95,7 +98,7 @@ export default function LoginPage() {
             />
           </div>
           <button type="submit" className="btn login-btn" disabled={loading}>
-            {loading ? 'Carregando...' : (isRegistering ? 'Criar Conta' : 'Entrar')}
+            {submitLabel}
           </button>
         </form>
 

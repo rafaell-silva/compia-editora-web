@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 
 const WishlistContext = createContext();
 const STORAGE_KEY = 'comperia-wishlist';
@@ -46,14 +46,16 @@ export function WishlistProvider({ children }) {
     }
   };
 
+  const value = useMemo(() => ({
+    wishlistItems,
+    addToWishlist,
+    removeFromWishlist,
+    isInWishlist,
+    toggleWishlist
+  }), [wishlistItems, addToWishlist, removeFromWishlist, isInWishlist, toggleWishlist]);
+
   return (
-    <WishlistContext.Provider value={{
-      wishlistItems,
-      addToWishlist,
-      removeFromWishlist,
-      isInWishlist,
-      toggleWishlist
-    }}>
+    <WishlistContext.Provider value={value}>
       {children}
     </WishlistContext.Provider>
   );
